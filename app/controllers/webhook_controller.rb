@@ -31,11 +31,38 @@ class WebhookController < ApplicationController
         when Line::Bot::Event::Message
           case event.type
             #テキストメッセージが送られた場合、そのままおうむ返しする
-            when Line::Bot::Event::MessageType::Text
-               message = {
-                    type: 'text',
-                    text: input_text
-                    }
+            when event["message"]["text"] == "青い胡蝶蘭"
+              message = {
+                type: "template",
+                altText: "this is a buttons template",
+                template: {
+                    type: "buttons",
+                    thumbnailImageUrl: "http://assets.vest-farmers.com/images/6.jpg",
+                    title: "胡蝶蘭大輪ピンク",
+                    text: "24,000円(税抜価格)",
+                    actions: [
+                        {
+                          type: "postback",
+                          label: "Buy",
+                          data: "action=buy&itemid=123"
+                        },
+                        {
+                          type: "postback",
+                          label: "Add to cart",
+                          data: "action=add&itemid=123"
+                        },
+                        {
+                          type: "uri",
+                          label: "View detail",
+                          uri: "http://example.com/page/123"
+                        }
+                    ]
+                }
+              }
+               # message = {
+               #      type: 'text',
+               #      text: input_text
+               #      }
 
             #画像が送られた場合、適当な画像を送り返す
             #画像を返すには、画像が保存されたURLを指定する。
