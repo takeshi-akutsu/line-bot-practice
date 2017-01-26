@@ -33,28 +33,21 @@ class WebhookController < ApplicationController
             #テキストメッセージが送られた場合、そのままおうむ返しする
             when Line::Bot::Event::MessageType::Text
               message = {
-                type: "template",
-                altText: "this is a buttons template",
-                template: {
-                    type: "buttons",
-                    thumbnailImageUrl: "http://assets.vest-farmers.com/images/6.jpg",
-                    title: "胡蝶蘭大輪ピンク",
-                    text: "24,000円(税抜価格)",
-                    actions: [
+                "type": "template",
+                "altText": "this is a confirm template",
+                "template": {
+                    "type": "confirm",
+                    "text": "Are you sure?",
+                    "actions": [
                         {
-                          type: "postback",
-                          label: "Buy",
-                          data: "action=buy&itemid=123"
+                          "type": "message",
+                          "label": "Yes",
+                          "text": "yes"
                         },
                         {
-                          type: "postback",
-                          label: "Add to cart",
-                          data: "action=add&itemid=123"
-                        },
-                        {
-                          type: "uri",
-                          label: "View detail",
-                          uri: "http://vest-farmers.com/products/6"
+                          "type": "message",
+                          "label": "No",
+                          "text": "no"
                         }
                     ]
                 }
