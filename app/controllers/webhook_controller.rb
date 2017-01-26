@@ -31,7 +31,7 @@ class WebhookController < ApplicationController
         when Line::Bot::Event::Message
           case event.type
             #テキストメッセージが送られた場合、そのままおうむ返しする
-            when event["message"]["text"] == "青い胡蝶蘭"
+            when Line::Bot::Event::MessageType::Text
               message = {
                 type: "template",
                 altText: "this is a buttons template",
